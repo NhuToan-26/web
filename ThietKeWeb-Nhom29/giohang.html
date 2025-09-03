@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Giỏ hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* CSS cho hình ảnh trong bảng giỏ hàng */
+        img {
+            width: 100px;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body style="padding-top: 70px;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-mauthanh fixed-top">
+        <div class="container px-3">
+            <a class="navbar-brand" href="#">GuitarStone</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioithieu.html">Giới Thiệu</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Sản Phẩm
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#DabGuitar">Đàn Guitar</a></li>
+                            <li><a class="dropdown-item" href="#LinhKien">Linh Kiện</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" herf="#TinTuc">Tin Tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#LienHe">Liên Hệ</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="nav-link position-relative d-flex align-items-center" href="giohang.html">
+                        <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
+                        <span id="cart-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                        </span>
+                        <span class="ms-1">Giỏ Hàng</span>
+                    </a>
+                    <span id="userDisplay" class="nav-link d-none"></span>
+                    <a id="loginLink" class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng
+                        Nhập</a>
+                    <a id="logoutLink" class="nav-link logout d-none" onclick="logout()">Đăng Xuất</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2>Giỏ hàng</h2>
+        <!-- Bảng hiển thị giỏ hàng -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Giá</th>
+                    <th>Số lượng</th>
+                    <th>Tổng</th>
+                    <th>Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><img src="images/guitar dien enya inspire - igor 2.webp" alt="Guitar"></td>
+                    <td>Đàn Guitar Điện Enya Inspire - Igor</td>
+                    <td>9.000.000₫</td>
+                    <td><input type="number" value="1" class="form-control" style="width:80px;"></td>
+                    <td>9.000.000₫</td>
+                    <td><button class="btn btn-danger">Xóa</button></td>
+                </tr>
+            </tbody> 
+        </table>
+
+        <h4 class="text-end">Tổng cộng: 9.000.000₫</h4>
+        <div class="text-end">
+            <button id="checkout-btn" class="btn btn-success">Thanh Toán</button>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

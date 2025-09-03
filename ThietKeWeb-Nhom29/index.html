@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrangChu-GuitarStone</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Thanh Điều Hướng -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-mauthanh fixed-top">
+        <div class="container px-3">
+            <a class="navbar-brand" href="#">GuitarStone</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Trang Chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="gioithieu.html">Giới Thiệu</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Sản Phẩm
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#DanGuitar">Đàn Guitar</a></li>
+                            <li><a class="dropdown-item" href="#LinhKien">Linh Kiện</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#TinTuc">Tin Tức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#LienHe">Liên Hệ</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center gap-2">
+                    <a class="nav-link position-relative d-flex align-items-center" href="giohang.html">
+                        <i class="bi bi-cart" style="font-size: 1.5rem;"></i>
+                        <span id="cart-count"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            0
+                        </span>
+                        <span class="ms-1">Giỏ Hàng</span>
+                    </a>
+                    <span id="userDisplay" class="nav-link d-none"></span>
+                    <a id="loginLink" class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng
+                        Nhập</a>
+                    <a id="logoutLink" class="nav-link logout d-none" onclick="logout()">Đăng Xuất</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- MODAL ĐĂNG NHẬP / ĐĂNG KÝ -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content shadow">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="loginModalLabel">Tài Khoản</h1> <button type="button"
+                        class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body"> <!-- Form Đăng Nhập -->
+                    <div id="loginForm">
+                        <form onsubmit="return login(event)">
+                            <div class="mb-3"> <label for="loginEmail" class="form-label">Email</label> <input
+                                    type="email" class="form-control" id="loginEmail" placeholder="Nhập email"
+                                    required /> </div>
+                            <div class="mb-3"> <label for="loginPassword" class="form-label">Mật khẩu</label> <input
+                                    type="password" class="form-control" id="loginPassword" placeholder="Nhập mật khẩu"
+                                    required /> </div> <button type="submit" class="btn btn-primary w-100 mb-2">Đăng
+                                Nhập</button>
+                            <div class="text-center"> <small>Chưa có tài khoản? <a href="#" id="showRegister">Đăng
+                                        ký</a></small> </div>
+                        </form>
+                    </div> <!-- Form Đăng Ký -->
+                    <div id="registerForm" style="display: none">
+                        <form onsubmit="return register(event)">
+                            <div class="mb-3"> <label for="registerName" class="form-label">Họ và tên</label> <input
+                                    type="text" class="form-control" id="registerName" placeholder="Nhập họ tên"
+                                    required /> </div>
+                            <div class="mb-3"> <label for="registerEmail" class="form-label">Email</label> <input
+                                    type="email" class="form-control" id="registerEmail" placeholder="Nhập email"
+                                    required /> </div>
+                            <div class="mb-3"> <label for="registerPassword" class="form-label">Mật khẩu</label> <input
+                                    type="password" class="form-control" id="registerPassword"
+                                    placeholder="Tạo mật khẩu" required /> </div> <button type="submit"
+                                class="btn btn-success w-100 mb-2">Đăng Ký</button>
+                            <div class="text-center"> <small>Đã có tài khoản? <a href="#" id="showLogin">Đăng
+                                        nhập</a></small> </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer"> <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Thoát</button> </div>
+            </div>
+        </div>
+    </div>
+    <!-- JavaScript phần Đăng Nhập / Đăng kí-->
+    <script src="ThongTin.js"></script>
+
+    <!-- Mục Tiêu 1 -->
+    <!-- Giới Thiệu Các Loại Đàn -->
+    <h1>ĐÀN GUITAR</h1>
+    <div class="TieuDe-Chu">Trang Chủ</div>
+    <div class="guitar-container">
+        <div class="guitar-card">
+            <img src="images/dan-guitar-acoustic.webp" alt="Đàn Guitar Acoustic">
+            <div class="TenGuitar">Đàn Guitar Acoustic</div>
+        </div>
+        <div class="guitar-card">
+            <img src="images/dan-guitar-cordoba-classic.webp" alt="Đàn Guitar Classic">
+            <div class="TenGuitar">Đàn Guitar Classic</div>
+        </div>
+        <div class="guitar-card">
+            <img src="images/T1-Uke-StreetMaster_f.webp" alt="Đàn Guitar Ukulele">
+            <div class="TenGuitar">Đàn Guitar Ukulele</div>
+        </div>
+        <div class="guitar-card">
+            <img src="images/electric_guitar_dien.webp" alt="Đàn Guitar Điện">
+            <div class="TenGuitar">Đàn Guitar Điện</div>
+        </div>
+    </div>
+    <!-- Danh Sách Sản Phẩm -->
+    <section class="jumbotron text-center">
+        <div class="col-12 text-center">
+            <div class="danhsachsanpham">
+                <h1 class="jumbotron-heading">Danh sách Sản phẩm</h1>
+                <p class="lead text-muted">Các sản phẩm với chất lượng, uy tín, cam kết từ nhà Sản xuất, phân phối và
+                    bảo hành chính hãng.
+                </p>
+            </div>
+        </div>
+    </section>
+    <!-- Khung Bao Quanh -->
+    <div id="DanGuitar" class="container-fluid px-5">
+        <h2 class="Muc-CaoCap">Sản Phẩm Cao Cấp</h2>
+        <div class="khungdanhsach">
+            <div class="SanPham py-5 bg-light">
+                <div class="container-fluid px-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar1.html">
+                                        <img src="images/Dan guitar acoustic ibanez AE295 1.webp" class="anhsanpham">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar1.html">
+                                        <h6 class="neta-product-name-text">Ibanez</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Dan guitar acoustic ibanez AE295 1</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <s class="neta-product-old-price-text">14,600,000đ</s>
+                                            <b class="neta-product-new-price-text">14,000,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar1.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar2.html">
+                                        <img class="anhsanpham" src="images/Dan guitar acoustic Takamine GN73CE 3.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar2.html">
+                                        <h6 class="neta-product-name-text">Takamine</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Guitar Acoustic Takamine GN73CE</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <s class="neta-product-old-price-text">19,000,000đ</s>
+                                            <b class="neta-product-new-price-text">16,800,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar2.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar6.html">
+                                        <img class="anhsanpham"
+                                            src="images/guitar dien PRS Bolt-On CE 24 HH Rosewood 3.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar6.html">
+                                        <h6 class="neta-product-name-text">PRS</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Guitar Điện PRS Bolt-On CE 24 HH,
+                                        Rosewood
+                                        Fingerboard (2025)</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+
+                                            <b class="neta-product-new-price-text">63,990,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar6.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar4.html">
+                                        <img class="anhsanpham" src="images/Dan guitar classic Taylor 112CE-N 2.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar4.html">
+                                        <h6 class="neta-product-name-text">Taylor</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Guitar Classic Taylor 112CE-N</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <b class="neta-product-new-price-text">23,200,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar4.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sản Phẩm  -->
+    <div class="container-fluid px-5">
+        <h2 class="Muc-SanPham">Sản Phẩm </h2>
+        <div class="khungdanhsach">
+            <div class="SanPham py-5 bg-light">
+                <div class="container-fluid px-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar3.html">
+                                        <img src="images/Dan guitar classic Takamine H8SS 1.webp" class="anhsanpham">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar3.html">
+                                        <h6 class="neta-product-name-text">Cort</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn guitar classic Takamine H8SS</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <s class="neta-product-old-price-text">7,060,000đ</s>
+                                            <b class="neta-product-new-price-text">6,060,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar3.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar5.html">
+                                        <img class="anhsanpham" src="images/guitar dien enya inspire - igor 2.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar5.html">
+                                        <h6 class="neta-product-name-text">Takamine</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Guitar Acoustic Takamine GN73CE</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <s class="neta-product-old-price-text">10,000,000đ</s>
+                                            <b class="neta-product-new-price-text">9,000,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar5.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar7.html">
+                                        <img class="anhsanpham"
+                                            src="/images/dan-ukulele-tenor-kala-acacia-ka-gat 3.webp">
+                                    </a>
+                                </div>
+                                <div class=" card-body">
+                                    <a href="Guitar7.html">
+                                        <h6 class="neta-product-name-text">Enya</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Ukulele Tenor Kala Acacia KA-GAT
+                                    </h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+
+                                            <b class="neta-product-new-price-text">1,699,000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar7.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar8.html">
+                                        <img class="anhsanpham"
+                                            src="images/dan-guitar-dien-sire-larry-carlton-t7 4.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Guitar8.html">
+                                        <h6 class="neta-product-name-text">Sire</h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Đàn Guitar Điện Sire Larry Carlton T7
+                                    </h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <b class="neta-product-new-price-text">2.699.000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Guitar8.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Linh Kiện -->
+    <div id="LinhKien" class="container-fluid px-5">
+        <h2 Class="Muc-LinhKien">Linh Kiện</h2>
+        <div class="khungdanhsach">
+            <div class="SanPham py-5 bg-light">
+                <div class="container-fluid px-5">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Guitar1.html">
+                                        <img src="images/bao đan.webp" class="anhsanpham">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Linhkien1.html">
+                                        <h6 class="neta-product-name-text"></h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Bao đàn Guitar</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <b class="neta-product-new-price-text">450.000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Linhkien1.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Linhkien2.html">
+                                        <img class="anhsanpham" src="images/Dây đàn.jpg">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Linhkien2.html">
+                                        <h6 class="neta-product-name-text"></h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Dây đàn Guitar</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <b class="neta-product-new-price-text">16.320₫</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Linhkien2.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Linhkien3.html">
+                                        <img class="anhsanpham" src="images/Gia do chu A.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Linhkien3.html">
+                                        <h6 class="neta-product-name-text"></h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Giá đỡ đàn Guitar chữ A</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+
+                                            <b class="neta-product-new-price-text">150.000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Linhkien3.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="card mb-3 shadow-sm">
+                                <div class="neta-card-img-container">
+                                    <a href="Linhkien4.html">
+                                        <img class="anhsanpham" src="images/dây đeo đàn guitar.webp">
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <a href="Linhkien4.html">
+                                        <h6 class="neta-product-name-text"></h6>
+                                    </a>
+                                    <h6 class="m-0 neta-product-category-text">Dây đeo đàn Guitar</h6>
+                                </div>
+                                <div class="card-footer text-body-secondary">
+                                    <div class="d-flex flex-column justify-content-between align-items-center">
+                                        <small class="text-muted text-right">
+                                            <b class="neta-product-new-price-text">72.000đ</b>
+                                        </small>
+                                        <a class="btn btn-sm btn-outline-secondary neta-btn-view-product-detail"
+                                            href="Linhkien4.html">Xem chi tiết</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Liên Hệ -->
+        <div id="LienHe" class="container-fluid px-5">
+            <h2 class="Muc-LienHe text-center mb-4">Liên Hệ</h2>
+            <div class="khungdanhsach">
+                <div class="SanPham py-5 bg-light">
+                    <div class="container-fluid px-5">
+                        <div class="row">
+                            <!-- Cột thông tin liên hệ -->
+                            <div class="col-md-5 mb-4">
+                                <div class="mb-3">Hãy liên hệ với chúng tôi, chúng tôi sẽ phản hồi trong vòng 24 giờ
+                                </div>
+                                <div class="mb-2"><strong>Địa Chỉ</strong>: 123 Vườn Lài - An Phú Đông</div>
+                                <div class="mb-2"><strong>Số Điện Thoại</strong>: +84 313072006</div>
+                                <div class="mb-2"><strong>Email</strong>: GuitarStone@gmail.com</div>
+                            </div>
+
+                            <!-- Cột form liên hệ -->
+                            <div class="col-md-7">
+                                <form>
+                                    <div class="row mb-3">
+                                        <div class="col-md-6 mb-3 mb-md-0">
+                                            <input type="text" class="form-control" id="name" name="name"
+                                                placeholder="Name" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input type="email" class="form-control" id="email" name="email"
+                                                placeholder="Email" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <textarea class="form-control" id="comments" name="comments"
+                                            placeholder="Comment" rows="5"></textarea>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="submit" class="btn btn-primary">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- Blog/News Section -->
+        <section class="container my-5">
+            <h2 id="TinTuc" class="text-center mb-4">Tin Tức Đàn Guitar</h2>
+            <div class="row g-4">
+                <!-- Tin 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border">
+                        <div class="card-body">
+                            <h5 class="card-title">5 Mẫu Guitar Đáng Mua Năm 2025</h5>
+                            <p class="card-text">Yamaha TAG3 C – Đàn acoustic hiện đại,
+                                tích hợp Bluetooth và hiệu ứng
+                                âm thanh, tiện cho biểu diễn và luyện tập.</p>
+
+                            <p>PRS Mark Holcomb – Guitar cao cấp cho metal/prog, thiết
+                                kế bắt mắt, âm thanh mạnh mẽ.</p>
+
+                            <p>Fender Hybrid II Stratocaster – Dòng Fender Nhật chất
+                                lượng, phù hợp nhiều thể loại
+                                nhạc.</p>
+                            <p>Charvel Nova‑7 – Đàn 7 dây cho shredder, pickup DiMarzio
+                                và cần đàn mượt.</p>
+
+                            <p>Yamaha F310 / Fender FA‑125 – Lựa chọn tốt, giá rẻ cho
+                                người mới học chơi.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tin 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border">
+                        <div class="card-body">
+                            <h5 class="card-title">Bí Quyết Chọn Đàn Cho Người Mới</h5>
+                            <p class="card-text">Khi mới chơi đàn, hãy chọn cây đàn mà
+                                bạn cảm thấy thoải mái và muốn
+                                cầm
+                                lên chơi mỗi ngày. Nếu bạn thích đệm hát và phong cách
+                                phổ thông, chọn guitar acoustic
+                                hoặc
+                                classic dây nylon; nếu muốn chơi nhạc hiện đại cần
+                                am‑plifier thì có thể chọn guitar
+                                điện.
+                                Đảm bảo mặt top là gỗ nguyên miếng, cần đàn vừa tay,
+                                action thấp dễ bấm.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Tin 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 border">
+                        <div class="card-body">
+                            <h5 class="card-title">Cách Bảo Quản Đàn Guitar Mùa Mưa</h5>
+                            <p class="card-text">Để bảo quản đàn guitar tốt, cần giữ độ
+                                ẩm ổn định, tránh ánh nắng trực
+                                tiếp, lau sạch sau khi chơi, thay dây định kỳ, dưỡng
+                                phím gỗ và cất đàn trong bao hoặc
+                                hộp
+                                an toàn nhằm duy trì chất lượng âm thanh và độ bền của
+                                đàn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- footer -->
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <span>Bản quyền © bởi <a>GuitarStone</a></span>
+                        <span class="text-muted">Hành trang tới Tương lai</span>
+
+                        <p class="float-right">
+                            <a href="#">Về đầu trang</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end footer -->
+
+</body>
+
+</html>

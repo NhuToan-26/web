@@ -1,0 +1,146 @@
+body {
+    background-color: #f2f2f2; /* màu xám nhạt */
+    padding-top: 70px;         /* đẩy nội dung xuống dưới navbar */
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Màu thanh navbar */
+
+.bg-mauthanh {
+    background-color: #2196f3;
+}
+
+/* Tiêu đề */
+h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-top: 50px;
+}
+
+/* Phần tiêu đề chữ dưới banner */
+.TieuDe-Chu {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Giao diện thẻ đàn guitar */
+.guitar-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 20px 40px;
+}
+
+.guitar-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    width: 220px;
+    padding: 15px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.guitar-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+}
+
+.TenGuitar {
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 12px;
+    color: #333;
+}
+
+/* Danh sách sản phẩm */
+.danhsachsanpham {
+    background-color: #e6f0ff;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.danhsachsanpham h1 {
+    font-size: 2.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.danhsachsanpham p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Các mục tiêu đề */
+.Muc-CaoCap  {
+    margin-top: 50px;
+}
+
+.Muc-SanPham {
+    margin-top: 50px;
+}
+.Muc-LinhKien {
+    margin-top: 50px;
+}
+.Muc-LienHe {
+    margin-top: 50px;
+}
+
+.khungdanhsach {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+}
+
+.anhsanpham {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* Chỉ dùng flex cho nơi cần */
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+/* Hiệu ứng Giới Thiệu */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.hover-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Banner */
+.about-banner {
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
